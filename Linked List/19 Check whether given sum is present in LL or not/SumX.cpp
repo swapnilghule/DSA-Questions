@@ -1,156 +1,103 @@
 // { Driver Code Starts
-//Initial Template for C++
-
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node
-{
+struct Node {
     int data;
-    Node * next;
-    Node * prev;
-    Node (int x)
-    {
-        data=x;
-        next=NULL;
-        prev=NULL;
+    struct Node* next;
+
+    Node(int x) {
+        data = x;
+        next = NULL;
     }
-        
 };
 
-Node *newNode(int data)
-{
-    Node *temp=new Node(data);
-    
-    return temp;
+void append(struct Node** headRef, struct Node** tailRef, int newData) {
+    struct Node* new_node = new Node(newData);
+
+    if (*headRef == NULL) {
+        *headRef = new_node;
+    }
+
+    else {
+        (*tailRef)->next = new_node;
+    }
+    *tailRef = new_node;
 }
 
-
-
-
-void displayList(Node *head)
-{
-    //Head to Tail
-    while(head->next)
-    {
-        cout<<head->data<<" ";
-        head=head->next;
+void printList(struct Node* head) {
+    while (head) {
+        cout << head->data << ' ';
+        head = head->next;
     }
-    cout<<head->data;
-    
-    
-    
-}
-
-
-int getLength(Node * head)
-{
-    Node *temp=head;
-    
-    int count=0;
-    while(temp->next!=head)
-    {
-        count++;
-        temp=temp->next;
-    }
-    return count+1;
-}
-
-
-
-
-bool verify(Node* head)
-{
-    int fl=0;
-    int bl=0;
-    
-    Node *temp=head;
-    
-    while(temp->next)
-    {
-        temp=temp->next;
-        fl++;
-    }
-    
-    while(temp->prev)
-    {
-        temp=temp->prev;
-        bl++;
-    }
-    
-    return fl==bl;
 }
 
 
  // } Driver Code Ends
 /*
+Structure of the node of the linked list is as
 struct Node
 {
     int data;
-    Node * next;
-    Node * prev;
-    Node (int x)
-    {
-        data=x;
-        next=NULL;
-        prev=NULL;
+    struct Node* next;
+
+    Node(int x){
+        data = x;
+        next = NULL;
     }
-        
 };
 */
-Node* reverseDLL(Node * head)
-{
-    //Your code here
-    
-    Node *curr=head,*prev=NULL, *next;
-    
-    while(curr!=NULL)
-    {
-        next=curr->next;
-        curr->next=prev;
-        curr->prev=next;
-        prev=curr;
-        curr=next;
+class Solution{
+  public:
+    // your task is to complete this function
+    int countPairs(struct Node* head1, struct Node* head2, int x) {
+        // Code 
+         unordered_set<int> s;
+         int count=0;
+         while(head1)
+         {
+             s.insert(head1->data);
+             head1=head1->next;
+         }
+         
+         int res=0;
+         
+         while(head2)
+         {
+             if(s.find(x-head2->data) != s.end())
+             count++;
+             
+             head2=head2->next;
+         }
+         
+         
+         return count;
     }
-    
-    return prev;
-}
-
+};
 
 // { Driver Code Starts.
-
 int main() {
-	int t;
-	cin>>t;
-	while(t--)
-	{
-	    int n;
-	    cin>>n;
-	    Node *head=NULL, *tail=NULL;
-        int x;
-	    cin>>x;
-	    head = newNode(x);
-	    tail = head;
-	    
-	    for(int i=0;i<n - 1;i++)
-	    {
-	        cin>>x;
-	        Node* temp=newNode(x);
-	        tail->next=temp;
-	        temp->prev= tail;
-	        tail = temp;
-	    }
-	    head=reverseDLL(head);
-	    
-	    
-	    if(verify(head))
-	    displayList(head);
-	    else
-	    cout<<"Your pointers are not correctly connected";
- 
-	    cout<<endl;
-	}
-	return 0;
-}
-
-  // } Driver Code Ends
+    int T;
+    cin >> T;
+    while (T--) {
+        struct Node* head1 = NULL;
+        struct Node* tail1 = NULL;
+        struct Node* tail2 = NULL;
+        struct Node* head2 = NULL;
+        int n1, n2, tmp, x;
+        cin >> n1;
+        while (n1--) {
+            cin >> tmp;
+            append(&head1, &tail1, tmp);
+        }
+        cin >> n2;
+        while (n2--) {
+            cin >> tmp;
+            append(&head2, &tail2, tmp);
+        }
+        cin >> x;
+        Solution obj;
+        cout << obj.countPairs(head1, head2, x) << '\n';
+    }
+    return 0;
+}  // } Driver Code Ends
