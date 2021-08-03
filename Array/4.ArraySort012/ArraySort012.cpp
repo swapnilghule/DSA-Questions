@@ -1,52 +1,65 @@
-#include<bits.stdc++.h>
+// { Driver Code Starts
+#include<bits/stdc++.h>
 using namespace std;
 
 
-void Sort012(int a[], int n)
+
+ // } Driver Code Ends
+class Solution
 {
-    int low=0,high=n-1,medium=0;
-    while(medium<=high)
+    public:
+    void sort012(int a[], int n)
     {
-        if(a[medium]==0)                            // if its one the swap it with low element and increment both value (As set first element and move forward)
+        int low=0, medium=0, high=n-1;
+        
+        while(medium<=high)
         {
-            swap(a[low],a[medium]);
-            low++;
-            medium++;
-        }
-        if(a[medium]==1)                         // if its one then skip it and increment medium
-        {
-            medium++;
-
-        } 
-
-        if(a[medium]==2)                       // if its two then swap it with high element and decrement high (as set last element as 2 and move backward)
-        {
-            swap(a[high],a[medium])
-            high--;
+            if(a[medium]==0)
+            {
+                swap(a[medium],a[low]);
+                low++;
+                medium++;
+            }
+            else if(a[medium]==1)
+            {
+                medium++;
+            }
+          else  if(a[medium]==2)
+            {
+                swap(a[medium],a[high]);
+                high--;
+            }
         }
     }
-}
-
-int main()
-{
-    int t;
-     int n;
-    cin>>t;
-
-    while(t--)
-    {
     
-        cin>>n;
-        int a[n];
+};
 
-        for(int i=0;i<n;i++)
-        {
-            cin>>a[i];
+// { Driver Code Starts.
+int main() {
+
+    int t;
+    cin >> t;
+
+    while(t--){
+        int n;
+        cin >>n;
+        int a[n];
+        for(int i=0;i<n;i++){
+            cin >> a[i];
         }
 
-        Sort012(a,n);
+        Solution ob;
+        ob.sort012(a, n);
 
-        for(int i=0;i<n;i++)
-        cout<<a[i]<<" ";
+        for(int i=0;i<n;i++){
+            cout << a[i]  << " ";
+        }
+
+        cout << endl;
+        
+        
     }
+    return 0;
 }
+
+  // } Driver Code Ends

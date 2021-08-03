@@ -44,26 +44,26 @@ int multiply(int x, int res[], int res_size)
 	for (int i=0; i<res_size; i++)
 	{
 		int prod = res[i] * x + carry;
-        cout<<"\nproduct= "<<prod<<"\n";
+     //   cout<<"\nproduct= "<<prod<<"\n";
 
 		// Store last digit of 'prod' in res[]
 		res[i] = prod % 10;
-       cout<<"\nres[i]= "<<res[i]<<"\n";
+   //    cout<<"\nres[i]= "<<res[i]<<"\n";
 
 
 		// Put rest in carry
 		carry = prod/10;
-        cout<<"\ncarry= "<<carry<<"\n";
+    //    cout<<"\ncarry= "<<carry<<"\n";
 	}
 
 	// Put carry in res and increase result size
 	while (carry)
 	{
-        cout<<"\n Inside while loop\n";
+   //     cout<<"\n Inside while loop\n";
 		res[res_size] = carry%10;
-        cout<<"\nres[res_size]="<<res[res_size]<<"\n";
+    //    cout<<"\nres[res_size]="<<res[res_size]<<"\n";
 		carry = carry/10;
-        cout<<"\nNew carry="<<carry<<"\n";
+    //    cout<<"\nNew carry="<<carry<<"\n";
 		res_size++;
 	}
 	return res_size;
